@@ -18,7 +18,7 @@ will become
     *  dir2  
     *  dir3  
 
-if "y" is selected for dira. dira can be given a new name and will replace dir1
+if "y" is selected for dira. dira can be given a new name and will replace dir1.
 
 ### Bugs/TODOs
 
@@ -45,7 +45,7 @@ so the current implementation is not very adaptive for other scenarios. For exam
 
 ### Notes
 
-Some amount of human input is still required because many subdirectories will be skipped, and the name of the subdirectory may not be what is ultimately desired under `PC_PATH` so it is renamed before being moved. It can be fully automated in the general case where all subdirectories should be brought up under `PC_PATH` by modifying the for loop within main
+Some amount of human input is still required because many subdirectories will be skipped, and the name of the subdirectory may not be what is ultimately desired under `PC_PATH` so it is renamed before being moved. It can be fully automated in the general case where all subdirectories should be brought up under `PC_PATH` by modifying the for loop within main.
 
 
 ## change_folders.py
@@ -56,18 +56,19 @@ Upon running, enter the directory to start at. It's assumed that directories are
     *  dir1  
     *  dir2  
     *  dir3 
+    *  ....
 
 and "dir2" is entered, dir3 will be the first directory considered.
 
 User will be shown the current name of the directory and given an option to (k)eep, (c)hange, or (t)ype new title. If "k" is entered, the directory will be skipped and will is assumed to be correct. If "t" is entered, a new title can be typed and will be applied as the name of the directory and the program continues with the next directory. If "c" is entered, user can opt to remove sections of the current directory name (b)efore or (a)fter a given string. EX:
 
 `Start after which directory? (nothing for the first): `Daft Punk - Discovery  
-`Current name: Daft Punk - Homework [FLAC]  
-(k)eep, (c)hange, or (t)ype new title?: `c  
+`Current name: Daft Punk - Homework [FLAC]`    
+`(k)eep, (c)hange, or (t)ype new title?: `c  
 `Remove (b)efore or (a)fter given string? `a  
 `Remove everything after: `\[  
-`Current name: Daft Punk - Homework  
-(k)eep, (c)hange, or (t)ype new title?: `k  
+`Current name: Daft Punk - Homework`  
+`(k)eep, (c)hange, or (t)ype new title?: `k  
 
 changes the directory name to "Daft Punk - Homework". The same happens for (b)efore but characters prior to the entered string.
 
@@ -84,6 +85,29 @@ Grab all directories in `PC_PATH` and `PHONE_PATH`, identify differences, and ap
 
 ### Notes
 
-This can be done in a much more automated and intelligent way if it were reasonably possible to programmatically copy/delete folders on a phone. I had tried a couple of things and none of them worked well, and it's really not that onerous to do it manually assuming that the two directories are already similar. In the worst case, all directories can be deleted from one and copied from the other, but that takes a long time in my experience. The program does little more than track progress for doing this all manually, though, but makes it much easier and faster to do so.
+This can be done in a much more automated and intelligent way if it were reasonably possible to programmatically copy/delete folders on a phone. I had tried a couple of things and none of them worked well, and it's really not that onerous to do it manually assuming that the two directories are already similar. In the worst case, all directories can be deleted from one and copied from the other, but that takes a long time in my experience. The program does little more than track progress for doing this all manually, but makes it much easier and faster to do so.
 
 There's a bit of a hack in the main for loop to just restart the search from the beginning whenever a change is applied rather than properly indexing `pcList` and `phoneList`, but the search space is very small (sub-1000 directories in my case) so this doesn't hurt efficiency in any noticeable way.
+
+
+## remove_metadata.py
+
+Programmatically remove **all** metadata from **all** song files anywhere within `PC_PATH`
+
+### Bugs/TODOs
+
+* Implement recursive file finding (modified `getAllFolderPaths()` from bubble_up_folders.py)
+* Implement a way to write to metadata tags that are not in EasyID3
+* Add support for .m4a and .aac files
+* Add functionality for deleting .nfo, .txt, etc. files (anything that isn't .mp3, .flac, .aac, .m4a or .png/.jpg)
+* Overall structure/program flow should be rethought and improved
+
+### Notes
+
+This is not yet complete, mostly because I'm working to find out how and/or find an easier way to access those metadata tags that are not accessible in `mutagen.easyid3`'s EasyID3 module. For example, "Comments" is not accessible, so the "mutagenic" way to do it would be to create a new ID3 frame and write it to the file's metadata, but that's easier said than done and I'm hoping that I don't have to figure out how that actually works. eyed3 is another library that I initially was using but gave up on because it doesn't support any file formats other than .mp3, but may return to for .mp3 files and use mutagen for everything else since it's much simpler. Currently, ~30 tags are being rewritten to `""` using mutagen but some others need to be rewritten as well. 
+
+Supposedly, eyed3 has functionality for setting album cover art as well, so it may be worth setting album cover art to whatever image file is in the album's folder, assuming that's actually possible. 
+
+I've not run this file yet at all since it's been incomplete since I've started, but I've done some modifications in a python commandline on sample .mp3/.flac files and it's worked fine. 
+
+Ideally, deleting undesirable files would be done in a whole other program for the sake of reducing side effects, but I don't have any reason to do that anywhere else so I'm doing it here. They can be considered directory metadata. 
