@@ -46,3 +46,34 @@ so the current implementation is not very adaptive for other scenarios. For exam
 ### Notes
 
 Some amount of human input is still required because many subdirectories will be skipped, and the name of the subdirectory may not be what is ultimately desired under `PC_PATH` so it is renamed before being moved. It can be fully automated in the general case where all subdirectories should be brought up under `PC_PATH` by modifying the for loop within main
+
+
+## change_folders.py
+
+Upon running, enter the directory to start at. It's assumed that directories are being changed in alphabetical order, therefore backtracking shouldn't be necessary. If the directory structure is
+
+* PC_PATH  
+    *  dir1  
+    *  dir2  
+    *  dir3 
+
+and "dir2" is entered, dir3 will be the first directory considered.
+
+User will be shown the current name of the directory and given an option to (k)eep, (c)hange, or (t)ype new title. If "k" is entered, the directory will be skipped and will is assumed to be correct. If "t" is entered, a new title can be typed and will be applied as the name of the directory and the program continues with the next directory. If "c" is entered, user can opt to remove sections of the current directory name (b)efore or (a)fter a given string. EX:
+
+`Start after which directory? (nothing for the first): `Daft Punk - Discovery  
+`Current name: Daft Punk - Homework [FLAC]  
+(k)eep, (c)hange, or (t)ype new title?: `c  
+`Remove (b)efore or (a)fter given string? `a  
+`Remove everything after: `\[  
+`Current name: Daft Punk - Homework  
+(k)eep, (c)hange, or (t)ype new title?: `k  
+
+changes the directory name to "Daft Punk - Homework". The same happens for (b)efore but characters prior to the entered string.
+
+### Notes
+
+Directory names are "pre-processed" to remove everything after and including the first \[ as I determined that no directories had anything that I wanted to keep after a \[. This isn't perfect, but it removes the necessity of changing several directory names manually because opting to keep those directory names will change them.
+
+This is very specifically made for my own use cases (cleaning up music folder names to be standardized to "artist - album") so likely doesn't have much other utility. It works very well for this case and streamlines the process for changing hundreds of folder names with somewhat consistent or entirely inconsistent naming conventions.
+
