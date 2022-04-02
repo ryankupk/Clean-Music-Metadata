@@ -37,6 +37,8 @@ if __name__ == "__main__":
         newName = None
         if name.find("[") != -1:
             newName = name[0:name.find("[")]
+        if name.find("(20") != -1:
+            newName = name[0:name.find("(20")]
         
         while keep.upper() == "C":
             print("Current name: " + (name if not newName else newName))
