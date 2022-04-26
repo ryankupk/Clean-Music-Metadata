@@ -42,7 +42,7 @@ if __name__ == "__main__":
             newName = name[0:name.find("(20")]
         
         while keep.upper() == "C":
-            print("Current name: " + (name if not newName else newName))
+            print(f"Current name: {(name if not newName else newName)}")
             # determine if name should be left as is or changed
             keep = input("(k)eep, (c)hange, or (t)ype new title?: ")
             if keep.upper() == "C":
@@ -57,7 +57,7 @@ if __name__ == "__main__":
             else: break
                 
         if keep.upper() != "T":
-            print("Current name: " + (name if not newName else newName))
+            print(f"Current name: {(name if not newName else newName)}")
             switch = input("Switch artist and album? (y or n): ")
             if switch.upper() == "Y":
                 # switch front and back, assign to newName

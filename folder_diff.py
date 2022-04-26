@@ -22,8 +22,8 @@ phoneList.sort()
 acceptableOptions = ["del pc", "del phone", "move pc to phone", "move phone to pc"]
 
 def differenceFound(directory1, directory2, firstDevice, secondDevice):
-    print(firstDevice + " has directory " + directory1)
-    print("where " + secondDevice + " has directory " + directory2)
+    print(f"{firstDevice} has directory {directory1}")
+    print(f"where {secondDevice} has directory {directory2}")
     fix = ""
     while fix not in acceptableOptions:
         print()

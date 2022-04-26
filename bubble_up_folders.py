@@ -42,7 +42,7 @@ def bubble(path, newName):
 if __name__ == "__main__":
     with os.scandir(PC_PATH) as paths:
         for directory in getAllFolderPaths(list(paths), []):
-            bubbleInput = input("Bubble directory " + directory.path + " to " + PC_PATH + "? (y or n): ")
+            bubbleInput = input(f"Bubble directory {directory.path} to {PC_PATH}? (y or n): ")
             if bubbleInput.upper() == "Y":
-                newName = PC_PATH + r"\\" + input("New name?: ")
+                newName = f"{PC_PATH}\\" + input("New name?: ")
                 bubble(directory, newName)
