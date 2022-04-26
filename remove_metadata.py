@@ -18,7 +18,8 @@ import os
 # audio.add(TIT2(encoding=3, text=u"An example"))
 # audio.save()
 
-PC_PATH = r'your dir here'
+PC_PATH = r'D:\clean music metadata\\'
+PHONE_PATH = r'S:\Music'
 
 # determines whether there are any folders in the current directory
 # returns true if a folder is found, false if only files exist
@@ -30,15 +31,16 @@ def checkIfFolders(path):
 
     return False
 
+# TODO: add functionality for doing the same on arbitrary file path
 def deleteMetadata(path):
     with os.scandir(path) as currentFolder:
         # iterate across files
         for file in currentFolder:
             # delete metadata for each file
             if file.endswith(".flac"):
-                deleteFLACMetadata(PC_PATH + r"\\" + file)
+                deleteFLACMetadata(PC_PATH + file)
             elif file.endswith(".mp3"):
-                deleteMP3Metadata(PC_PATH + r"\\" + file, ID3=EasyID3)
+                deleteMP3Metadata(PC_PATH + file)
             else: # idk what this would be other than cover image but we probably want to delete these files
                 print(file.name)
 
@@ -59,7 +61,7 @@ def deleteFLACMetadata(filePath):
 
     file.save()
 
-
+# TODO: add all mp3 tags
 def deleteMP3Metadata(filePath):
     file = MP3(filePath, ID3=EasyID3)
 

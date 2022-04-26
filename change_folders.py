@@ -17,7 +17,8 @@ def switchFrontBack(name, position):
     return back + " - " + front  
 
 # path to first directory
-PC_PATH = r'your dir here'
+PC_PATH = r'D:\music'
+PHONE_PATH = r'S:\Music'
 
 
 if __name__ == "__main__":

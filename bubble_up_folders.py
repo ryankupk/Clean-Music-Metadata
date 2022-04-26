@@ -1,7 +1,7 @@
 import os
 import shutil
 
-PC_PATH = r"your dir here"
+PC_PATH = r"D:\music"
 
 def getAllFolderPaths(searchPaths, returnPaths):
     # base case: return when there are no more searchPaths to check

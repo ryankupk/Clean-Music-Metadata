@@ -81,13 +81,11 @@ This is very specifically made for my own use cases (cleaning up music folder na
 
 ## folder_diff.py
 
-Grab all directories in `PC_PATH` and `PHONE_PATH`, identify differences, and apply "fixes" to the data in each until they are the same. Options are to delete a directory on the phone, delete a directory on the PC, copy a directory from the phone to the PC, copy a directory from the PC to the phone. It's assumed that the phone is rooted so that scripts can be run in the terminal to get a .txt file "directories.txt" which is placed in `PC_PATH` before starting. 
+Grab all directories in `PC_PATH` and `PHONE_PATH`, identify differences, and apply "fixes" to the data in each until they are the same. Options are to delete a directory on the phone, delete a directory on the PC, copy a directory from the phone to the PC, copy a directory from the PC to the phone. The phone must have a remote server that can be mounted on the PC, and the path to that server is set in `PHONE_PATH`.
 
 ### Notes
 
-This can be done in a much more automated and intelligent way if it were reasonably possible to programmatically copy/delete folders on a phone. I had tried a couple of things and none of them worked well, and it's really not that onerous to do it manually assuming that the two directories are already similar. In the worst case, all directories can be deleted from one and copied from the other, but that takes a long time in my experience. The program does little more than track progress for doing this all manually, but makes it much easier and faster to do so.
-
-There's a bit of a hack in the main for loop to just restart the search from the beginning whenever a change is applied rather than properly indexing `pcList` and `phoneList`, but the search space is very small (sub-1000 directories in my case) so this doesn't hurt efficiency in any noticeable way.
+There's a bit of a hack in the main for loop to just restart the search from the beginning whenever a change is applied rather than properly indexing `pcList` and `phoneList`, but the search space is very small (sub-1000 directories in my case) so this doesn't hurt efficiency in any meaningful way.
 
 
 ## remove_metadata.py

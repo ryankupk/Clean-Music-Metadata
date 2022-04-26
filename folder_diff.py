@@ -1,19 +1,18 @@
 import os
+import shutil
 
 # cd /storage/0000-0000/Music
 # sudo sh -c "sudo ls >> "directories.txt""
 
 # path to first directory
-PC_PATH = r'your dir here'
+PC_PATH = r'D:\music'
 # get a list of all directories and files on the pc
 pcList = os.listdir(PC_PATH)
 
 # path to second directory
-PHONE_PATH = r'your dir here\\directories.txt'
-# open file with utf8 encoding for some reason
-f = open(PHONE_PATH, encoding='utf8')
-# get a list of all directories and files on the phone from the "directories.txt file"
-phoneList = f.read().strip().split('\n')
+PHONE_PATH = r'S:\Music'
+# get a list of all directories and files on the phone
+phoneList = os.listdir(PHONE_PATH)
 
 # directories and files are not necessarily in the same order
 # sort them so that they are guaranteed to be in the same order
@@ -39,21 +38,26 @@ def differenceFound(directory1, directory2, firstDevice, secondDevice):
     elif fix == acceptableOptions[3]:
         movePhoneToPC(directory1)
 
+    
+
 
 def delPC(directory):
     pcList.remove(directory)
+    os.rmdir(f'{PC_PATH}\\{directory}')
 
 def delPhone(directory):
     phoneList.remove(directory)
+    os.rmdir(f'{PHONE_PATH}\\{directory}')
 
 def movePhoneToPC(directory):
     pcList.append(directory)
     pcList.sort()
+    shutil.copytree(f'{PHONE_PATH}\\{directory}', f'{PC_PATH}\\{directory}')
 
 def movePCToPhone(directory):
     phoneList.append(directory)
     phoneList.sort()
-
+    shutil.copytree(f'{PC_PATH}\\{directory}', f'{PHONE_PATH}\\{directory}')
     
 
 if __name__ == "__main__":
